@@ -1,0 +1,368 @@
+#include <iostream>
+#include <ctime>
+
+using namespace std;
+
+int getRandomSteps(int min, int max);
+void display_track (int position1, int position2, char symbol1, char symbol2);
+
+
+int main() {
+    // Seed the random number generator
+    srand(time(0));
+
+    int enterpriseTrack = 0;
+    int voyagerTrack = 0;
+
+    cout << "Enterprise current track: " << enterpriseTrack << endl;
+    cout << "Voyager current track: " << voyagerTrack << endl;
+    cout << "\npress Enter to start the race\n";
+
+    while (true) {
+        cin.get(); // Wait for user to press Enter
+
+        // Generate random steps for Enterprise and Voyager
+        int enterpriseStep = getRandomSteps(1, 6);
+        int voyagerStep = getRandomSteps(2, 5);
+
+        // Update track positions
+        enterpriseTrack += enterpriseStep;
+        voyagerTrack += voyagerStep;
+
+        // Display track
+        display_track(enterpriseTrack, voyagerTrack, 'e', 'v');
+
+        // Display current track positions and steps taken
+        cout << "Enterprise current track: " << enterpriseTrack << endl;
+        cout << "Voyager current track: " << voyagerTrack << endl;
+        cout << "\n";
+        cout << "Enterprise step: " << enterpriseStep << endl;
+        cout << "Voyager step: " << voyagerStep << endl;
+
+        // Check if any racer has reached the finish line
+        if (enterpriseTrack >= 36 && voyagerTrack >= 36) {
+            cout << "It's a tie!" << endl;
+            break;
+        } else if (enterpriseTrack >= 36) {
+            cout << "Enterprise wins!" << endl;
+            break;
+        } else if (voyagerTrack >= 36) {
+            cout << "Voyager wins!" << endl;
+            break;
+        } else {
+            cout << "\npress Enter for the next turn\n";
+        }
+    }
+
+    return 0;
+}
+
+
+int getRandomSteps(int min, int max) {
+    return rand() % (max - min + 1) + min;
+}
+
+void display_track(int position1, int position2, char character1, char character2)
+// this function displays the race track, placing the characters of the racers at the given positions
+{
+    const int WIDTH = 34;
+    const int HEIGHT = 19;
+
+    char track[HEIGHT][WIDTH];
+
+    // initialise all to spaces
+    for (int i = 0; i < HEIGHT; i++)
+        for (int j = 0; j < WIDTH; j++)
+            track[i][j] = ' ';
+
+    // top track
+    for (int i = 0; i <= 2; i = i + 2)
+    {
+        for (int j = 0; j < WIDTH-1; j = j + 3)
+        {
+            track[i][j] = '+';
+            track[i][j+1] = '-';
+            track[i][j+2] = '-';
+        }
+        track[i][WIDTH-1] = '+';
+    }
+
+    for (int j = 0; j < WIDTH; j = j + 3)
+        track[1][j] = '|';
+
+    // left and right tracks - vertical lines
+    for (int i = 3; i < HEIGHT-3; i = i + 2)
+    {
+        track[i][0] = '|';
+        track[i][3] = '|';
+        track[i][WIDTH-4] = '|';
+        track[i][WIDTH-1] = '|';
+    }
+
+   // left track - horizontal lines
+    for (int i = 4; i < HEIGHT-3; i = i + 2)
+    {
+        track[i][0] = '+';
+        track[i][1] = '-';
+        track[i][2] = '-';
+        track[i][3] = '+';
+   }
+
+   // right track - horizontal lines
+    for (int i = 4; i < HEIGHT-3; i = i + 2)
+    {
+        track[i][WIDTH-4] = '+';
+        track[i][WIDTH-3] = '-';
+        track[i][WIDTH-2] = '-';
+        track[i][WIDTH-1] = '+';
+   }
+
+    // bottom track
+    for (int i = HEIGHT-3; i<HEIGHT; i = i + 2)
+    {
+        for (int j=0; j<WIDTH-1; j = j + 3)
+        {
+            track[i][j] = '+';
+            track[i][j+1] = '-';
+            track[i][j+2] = '-';
+        }
+        track[i][WIDTH-1] = '+';
+    }
+
+    for (int j=0; j<WIDTH; j = j + 3)
+        track[HEIGHT-2][j] = '|';
+
+    switch (position1)
+    {
+        case 0:
+            track[17][1] = character1;
+            break;
+        case 1:
+            track[17][4] = character1;
+            break;
+        case 2:
+            track[17][7] = character1;
+            break;
+        case 3:
+            track[17][10] = character1;
+            break;
+        case 4:
+            track[17][13] = character1;
+            break;
+        case 5:
+            track[17][16] = character1;
+            break;
+        case 6:
+            track[17][19] = character1;
+            break;
+        case 7:
+            track[17][22] = character1;
+            break;
+        case 8:
+            track[17][25] = character1;
+            break;
+        case 9:
+            track[17][28] = character1;
+            break;
+        case 10:
+            track[17][31] = character1;
+            break;
+        case 11:
+            track[15][31] = character1;
+            break;
+        case 12:
+            track[13][31] = character1;
+            break;
+        case 13:
+            track[11][31] = character1;
+            break;
+        case 14:
+            track[9][31] = character1;
+            break;
+        case 15:
+            track[7][31] = character1;
+            break;
+        case 16:
+            track[5][31] = character1;
+            break;
+        case 17:
+            track[3][31] = character1;
+            break;
+        case 18:
+            track[1][31] = character1;
+            break;
+        case 19:
+            track[1][28] = character1;
+            break;
+        case 20:
+            track[1][25] = character1;
+            break;
+        case 21:
+            track[1][22] = character1;
+            break;
+        case 22:
+            track[1][19] = character1;
+            break;
+        case 23:
+            track[1][16] = character1;
+            break;
+        case 24:
+            track[1][13] = character1;
+            break;
+        case 25:
+            track[1][10] = character1;
+            break;
+        case 26:
+            track[1][7] = character1;
+            break;
+        case 27:
+            track[1][4] = character1;
+            break;
+        case 28:
+            track[1][1] = character1;
+            break;
+        case 29:
+            track[3][1] = character1;
+            break;
+        case 30:
+            track[5][1] = character1;
+            break;
+        case 31:
+            track[7][1] = character1;
+            break;
+        case 32:
+            track[9][1] = character1;
+            break;
+        case 33:
+            track[11][1] = character1;
+            break;
+        case 34:
+            track[13][1] = character1;
+            break;
+        case 35:
+            track[15][1] = character1;
+            break;
+    }
+
+    // racer 2
+    switch (position2)
+    {
+        case 0:
+            track[17][2] = character2;
+            break;
+        case 1:
+            track[17][5] = character2;
+            break;
+        case 2:
+            track[17][8] = character2;
+            break;
+        case 3:
+            track[17][11] = character2;
+            break;
+        case 4:
+            track[17][14] = character2;
+            break;
+        case 5:
+            track[17][17] = character2;
+            break;
+        case 6:
+            track[17][20] = character2;
+            break;
+        case 7:
+            track[17][23] = character2;
+            break;
+        case 8:
+            track[17][26] = character2;
+            break;
+        case 9:
+            track[17][29] = character2;
+            break;
+        case 10:
+            track[17][32] = character2;
+            break;
+        case 11:
+            track[15][32] = character2;
+            break;
+        case 12:
+            track[13][32] = character2;
+            break;
+        case 13:
+            track[11][32] = character2;
+            break;
+        case 14:
+            track[9][32] = character2;
+            break;
+        case 15:
+            track[7][32] = character2;
+            break;
+        case 16:
+            track[5][32] = character2;
+            break;
+        case 17:
+            track[3][32] = character2;
+            break;
+        case 18:
+            track[1][32] = character2;
+            break;
+        case 19:
+            track[1][29] = character2;
+            break;
+        case 20:
+            track[1][26] = character2;
+            break;
+        case 21:
+            track[1][23] = character2;
+            break;
+        case 22:
+            track[1][20] = character2;
+            break;
+        case 23:
+            track[1][17] = character2;
+            break;
+        case 24:
+            track[1][14] = character2;
+            break;
+        case 25:
+            track[1][11] = character2;
+            break;
+        case 26:
+            track[1][8] = character2;
+            break;
+        case 27:
+            track[1][5] = character2;
+            break;
+        case 28:
+            track[1][2] = character2;
+            break;
+        case 29:
+            track[3][2] = character2;
+            break;
+        case 30:
+            track[5][2] = character2;
+            break;
+        case 31:
+            track[7][2] = character2;
+            break;
+        case 32:
+            track[9][2] = character2;
+            break;
+        case 33:
+            track[11][2] = character2;
+            break;
+        case 34:
+            track[13][2] = character2;
+            break;
+        case 35:
+            track[15][2] = character2;
+            break;
+    }
+
+    // display the track
+    for (int i=0; i<HEIGHT; i++)
+    {
+        for (int j=0; j<WIDTH; j++)
+            cout << track[i][j];
+        cout << endl;
+    }
+    cout << endl;
+}
