@@ -14,6 +14,8 @@ int main() {
     int enterpriseTrack = 0;
     int voyagerTrack = 0;
 
+    display_track(enterpriseTrack, voyagerTrack, 'e', 'v');
+
     cout << "Enterprise current track: " << enterpriseTrack << endl;
     cout << "Voyager current track: " << voyagerTrack << endl;
     cout << "\npress Enter to start the race\n";
