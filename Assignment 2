@@ -12,7 +12,7 @@ int main() {
     srand(time(0));
 
     int enterpriseTrack = 0;
-    int voyagerTrack = 50;
+    int voyagerTrack = 0;
     int sonicTrack = 0;
 
     display_track(enterpriseTrack, voyagerTrack, sonicTrack, 'e', 'v','s');
