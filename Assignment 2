@@ -4,22 +4,29 @@
 using namespace std;
 
 int getRandomSteps(int min, int max);
-void display_track (int position1, int position2,int intposition3, char symbol1, char symbol2,char symbol3);
+void display_track (int position1, int position2,int intposition3,int rounds, char symbol1, char symbol2,char symbol3);
 
 
 int main() {
-    // Seed the random number generator
+    // Seed the random number generator based on time
     srand(time(0));
 
+    // set value for racers
     int enterpriseTrack = 0;
     int voyagerTrack = 0;
     int sonicTrack = 0;
+    int rounds=1, finish ;
 
-    display_track(enterpriseTrack, voyagerTrack, sonicTrack, 'e', 'v','s');
+    display_track(enterpriseTrack, voyagerTrack,sonicTrack,rounds, 'e', 'v','s');
 
     cout << "Enterprise current track: " << enterpriseTrack << endl;
     cout << "Voyager current track: " << voyagerTrack << endl;
     cout << "Sonic current track: " << sonicTrack << endl;
+    cout <<"enter the number of the rounds"<<endl;
+    cin  >>rounds;
+    finish=rounds*50;
+
+    cin.ignore(); // prevent race to start after entering round value
     cout << "\npress Enter to start the race\n";
 
     while (true) {
@@ -28,15 +35,16 @@ int main() {
         // Generate random steps for Enterprise and Voyager
         int enterpriseStep = getRandomSteps(1, 6);
         int voyagerStep = getRandomSteps(2, 5);
-        int sonicStep = getRandomSteps(0, 7);
+         int sonicStep = getRandomSteps(0, 7);
 
         // Update track positions
         enterpriseTrack += enterpriseStep;
         voyagerTrack += voyagerStep;
         sonicTrack += sonicStep;
 
+
         // Display track
-        display_track(enterpriseTrack, voyagerTrack, sonicTrack, 'e', 'v', 's');
+        display_track(enterpriseTrack, voyagerTrack,sonicTrack,rounds, 'e', 'v','s');
 
         // Display current track positions and steps taken
         cout << "Enterprise current track: " << enterpriseTrack << endl;
@@ -47,34 +55,35 @@ int main() {
         cout << "Voyager step: " << voyagerStep << endl;
         cout << "Sonic step: " << sonicStep << endl;
 
+
         // Check if any racer has reached the finish line
-        if (enterpriseTrack >= 50 && voyagerTrack >= 50 && sonicTrack >= 50) {
-            cout << "Congrat to all racers!" << endl;
+
+          if (enterpriseTrack >= finish && voyagerTrack >= finish && sonicTrack >= finish) {
+            cout << "It's a tie between all racers!" << endl;
             break;
-        } else if (enterpriseTrack >= 50 && voyagerTrack >= 50) {
-            cout << "Enterprise & Voyager wins!" << endl;
+        }
+        else if (enterpriseTrack >= finish && voyagerTrack >= finish) {
+            cout << "It's a tie between Voyager and Enterprise!" << endl;
             break;
-        } else if (voyagerTrack >= 50 && sonicTrack >= 50) {
-            cout << "Voyager & Sonic wins!" << endl;
+        } else if (enterpriseTrack >= finish && sonicTrack >= finish) {
+            cout << "It's a tie between Sonic and Enterprise!" << endl;
             break;
-        } else if (enterpriseTrack >= 50 && sonicTrack >= 50) {
-            cout << "Enterprise & Sonic wins!" << endl;
+        } else if (voyagerTrack >= finish && sonicTrack >= finish) {
+            cout << "It's a tie between Voyager and Sonic" << endl;
             break;
-        } else if (enterpriseTrack >= 50) {
+        } else if (enterpriseTrack >= finish) {
             cout << "Enterprise wins!" << endl;
             break;
-        } else if (voyagerTrack >= 50) {
+        } else if (voyagerTrack >= finish) {
             cout << "Voyager wins!" << endl;
             break;
-        } else if (sonicTrack >= 50) {
+        } else if (sonicTrack >= finish) {
             cout << "Sonic wins!" << endl;
             break;
-        }
-
-            else {
+         }   else {
             cout << "\npress Enter for the next turn\n";
-        }
-    }
+        }}
+
 
     return 0;
 }
@@ -84,9 +93,10 @@ int getRandomSteps(int min, int max) {
     return rand() % (max - min + 1) + min;
 }
 
-void display_track(int position1, int position2, int position3, char character1, char character2,char character3)
+void display_track(int position1, int position2, int position3,int rounds, char character1, char character2,char character3)
 // this function displays the race track, placing the characters of the racers at the given positions
 {
+
     const int WIDTH = 57;
     const int HEIGHT = 27;
 
@@ -155,29 +165,36 @@ void display_track(int position1, int position2, int position3, char character1,
         track[i][WIDTH-1] = '+';
     }
 
+    // initialize for next round
     for (int j=0; j<WIDTH; j = j + 4)
         track[HEIGHT-2][j] = '|';
+
+    while (position1>=50)
+        position1=position1-50;
+    while (position2>=50)
+        position2=position2-50;
+    while (position3>=50)
+        position3=position3-50;
     // racer 1
     if (position1 <= 13 && position1 >= 0)
     {
         int x;
         x=position1*4+1;
          track[25][x] = character1;
-        }else if (position1 > 13 && position1 <= 25)
+    }else if (position1 > 13 && position1 <= 25)
     {
         int x=25-((position1-13)*2);
          track[x][53] = character1;
-        }else if (position1 >= 25 && position1 < 38)
+    }else if (position1 > 25 && position1 < 38)
      {
         int x=53-(position1-25)*4;
          track[1][x] = character1;
-        }else if (position1 >= 38 && position1 < 50)
+    }else if (position1 >= 38 && position1 < 50)
      {
         int x=(position1-38)*2+1;
 
          track[x][1] = character1;
-        }
-
+    }
 
     // racer 2
     if (position2 <= 13 && position2 >= 0)
@@ -185,43 +202,48 @@ void display_track(int position1, int position2, int position3, char character1,
         int x;
         x=position2*4+2;
          track[25][x] = character2;
-        }else if (position2 > 13 && position2 <= 25)
+    }else if (position2 > 13 && position2 <= 25)
     {
         int x=25-((position2-13)*2);
          track[x][54] = character2;
-        }else if (position2 >= 25 && position2 < 38)
-     {
+    }else if (position2 > 25 && position2 < 38)
+    {
         int x=54-(position2-25)*4;
          track[1][x] = character2;
-        }else if (position2 >= 38 && position2 < 50)
-     {
+    }else if (position2 >= 38 && position2 < 50)
+    {
         int x=(position2-38)*2+1;
-
          track[x][2] = character2;
-        }
+    }
 
-    // racer 3
+       // racer 3
     if (position3 <= 13 && position3 >= 0)
     {
         int x;
         x=position3*4+3;
          track[25][x] = character3;
-        }else if (position3 > 13 && position3 <= 25)
+    }else if (position3 > 13 && position3 <= 25)
     {
         int x=25-((position3-13)*2);
          track[x][55] = character3;
-        }else if (position3 >= 25 && position3 < 38)
+    }else if (position3 > 25 && position3 < 38)
      {
         int x=55-(position3-25)*4;
          track[1][x] = character3;
-        }else if (position3 >= 38 && position3 < 50)
+    }else if (position3 >= 38 && position3 < 50)
      {
         int x=(position3-38)*2+1;
 
          track[x][3] = character3;
-        }
+    }
 
-
+    //check if the racers position is more than 50
+    while (position1>=50)
+        position1=position1-50;
+    while (position2>=50)
+        position2=position2-50;
+    while (position3>=50)
+        position3=position3-50;
 
     // display the track
     for (int i=0; i<HEIGHT; i++)
