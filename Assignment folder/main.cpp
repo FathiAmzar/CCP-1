@@ -32,6 +32,8 @@ int main() {
     if (bonusCount < 2) bonusCount = 2;
     if (bonusCount > 6) bonusCount = 6;
 
+    cout << "bonus objects is set to " << bonusCount << endl;
+
     for (int i = 0; i < bonusCount; ++i) {
         int location;
         int effect;
