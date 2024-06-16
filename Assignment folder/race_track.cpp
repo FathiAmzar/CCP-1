@@ -131,3 +131,9 @@ void display_track(int position1, int position2, int position3, int rounds, char
     }
     cout << endl;
 }
+
+int update_current_round(int a, int b, int c) {
+    if (a >= b && a >= c) return a / 50 + 1;
+    if (b >= a && b >= c) return b / 50 + 1;
+    return c / 50 + 1;
+}
