@@ -48,13 +48,12 @@ int main() {
             cin >> location;
         }
 
-        cout << "Choose effect. \n1.forward \n2.backward \n3.double step\n4.extra turn\n";
+        cout << "Choose effect. \n1.forward \n2.backward \n3.double \n4.bonus turn\n";
         cin >> effect;
         while (effect < 1 || effect > 4) {
-            cout << "Invalid effect type. Choose effect. \n1. forward \n2. backward \n3. double \n4. bonus turn: ";
+            cout << "Invalid effect type. Choose effect. \n1. forward \n2. backward \n3. double steps \n4. extra turn: ";
             cin >> effect;
         }
-
         if (effect == 1 || effect == 2){
         cout << "Enter value of the effect chosen: ";
         cin >> value;
@@ -78,13 +77,13 @@ int main() {
         // Apply any collected bonus objects before moving
         for (BonusObject& bonus : bonuses) {
             if (enterpriseTrack % 50 == bonus.location) {
-                applyBonusEffect(enterpriseTrack, enterpriseStep, bonus.effect, bonus.value);
+                bonus.applyBonusEffect(enterpriseTrack, enterpriseStep);
             }
             if (voyagerTrack % 50 == bonus.location) {
-                applyBonusEffect(voyagerTrack, voyagerStep, bonus.effect, bonus.value);
+                bonus.applyBonusEffect(voyagerTrack, voyagerStep);
             }
             if (sonicTrack % 50 == bonus.location) {
-                applyBonusEffect(sonicTrack, sonicStep, bonus.effect, bonus.value);
+                bonus.applyBonusEffect(sonicTrack, sonicStep);
             }
         }
 
@@ -94,6 +93,7 @@ int main() {
         sonicTrack += sonicStep;
 
         current_round = update_current_round(enterpriseTrack, voyagerTrack, sonicTrack);
+
 
         // Display track
         display_track(enterpriseTrack, voyagerTrack, sonicTrack, rounds, 'e', 'v', 's');
