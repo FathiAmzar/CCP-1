@@ -18,7 +18,9 @@ int main() {
 
     cout << "***************************************************************************" << endl;
     cout << "This game consist of 3 racers." << endl;
+    cout << "\n";
     cout << "Player need to press enter to start a turn." << endl;
+    cout << "\n";
     cout << "Player must put the bonus object on the track at the beginning of the game." << endl;
     cout << "***************************************************************************" << endl;
 
@@ -46,15 +48,17 @@ int main() {
             cin >> location;
         }
 
-        cout << "Choose effect. \n1.forward \n2.backward \n3.double \n4.bonus turn\n";
+        cout << "Choose effect. \n1.forward \n2.backward \n3.double step\n4.extra turn\n";
         cin >> effect;
         while (effect < 1 || effect > 4) {
             cout << "Invalid effect type. Choose effect. \n1. forward \n2. backward \n3. double \n4. bonus turn: ";
             cin >> effect;
         }
 
+        if (effect == 1 || effect == 2){
         cout << "Enter value of the effect chosen: ";
         cin >> value;
+        }
 
         bonuses.push_back(BonusObject(location, effect, value));
     }
@@ -88,6 +92,8 @@ int main() {
         enterpriseTrack += enterpriseStep;
         voyagerTrack += voyagerStep;
         sonicTrack += sonicStep;
+
+        current_round = update_current_round(enterpriseTrack, voyagerTrack, sonicTrack);
 
         // Display track
         display_track(enterpriseTrack, voyagerTrack, sonicTrack, rounds, 'e', 'v', 's');
