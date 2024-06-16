@@ -14,6 +14,7 @@ public:
     int effect;
     int value;
 
+    BonusObject() : location(0), effect(0), value(0) {}
     BonusObject(int loc, int eff, int val) : location(loc), effect(eff), value(val) {}
 };
 
