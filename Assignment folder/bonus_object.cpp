@@ -12,6 +12,6 @@ void applyBonusEffect(int& position, int& steps, const int& effect, int value) {
     } else if (effect == 3) {
         steps *= 2;
     } else if (effect == 4) {
-        steps += getRandomSteps(1, 6);
+        steps += getRandomSteps(1, 10);
     }
 }
